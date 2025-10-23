@@ -8,6 +8,6 @@ package modulo;
  *
  * @author HP SUPPORT
  */
-public class avanze {
+public class megaavanze {
     
 }
