@@ -9,7 +9,9 @@ import Modelo.dto.Producto;
 import Modelo.dto.Usuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
+import sistema_de_almacen.InventarioProveedorControlador; //Importar el controlador
 
 /**
  *
@@ -52,8 +54,50 @@ public class Prueba {
         }
         
         System.out.println("\n--- FIN PRUEBA DE LECTURA ---");
+        
+        //ALERTAS(INVENTARIOPROVEEDORCONTROLADOR)
+        
+        System.out.println("\n--- INICIO PRUEBA DE ALERTA DE BAJO STOCK ---");
+        
+        ArrayList<Modelo.dto.Proveedor> proveedores = new ArrayList<>();
+        
+        InventarioProveedorControlador controladorInventario = 
+                new InventarioProveedorControlador(productos, proveedores);
+        
+        if (productos != null && !productos.isEmpty()){
+            Producto productoAProbar = productos.get(0);
+            
+            if (productoAProbar.getStock() > 0) {
+                productoAProbar.setStock(0); //Stock 0
+                productoAProbar.setStockMinimo(5); //Stock Minimo = 5
+            }
+            System.out.println(">>> El producto '" + productoAProbar.getNombre()+
+                    "'a sido puesto con Stock 0 y minimo 5 para la prueba");
+        }
+        
+        ArrayList<Producto> productosConAlerta = controladorInventario.generarAlertaBajoStock();
+        
+        System.out.println("\n>>> RESULTADO DE ALERTA (generarAlertasBajoStock):");
+        
+        if (productosConAlerta.isEmpty()) {
+            System.out.println("--- EXITO: No se encontraron productos con bajo stock. ---");
+        }else {
+            System.out.println("--- ALERTA DETECTADA. Productos con bajo stock. ---");
+            System.out.printf("%-20s | %-10s | %-10s%n", "NOMBRE", "STOCK", "MINIMO");                        
+            System.out.println("--------------------------------------------------");
+            
+            for (Producto p : productosConAlerta) {
+                System.out.printf("%-20s | %-10d | %-10d%n",
+                                  p.getNombre(),
+                                  p.getStock(),
+                                  p.getStockMinimo());
+            }
+            System.out.println("--------------------------------------------------");
+            System.out.println(">>> Total de Alertas Generadas: "+ productosConAlerta.size());
+        }
+        System.out.println("--- FIN PRUEBA DE ALERTA ---");
 
-
+        
         // 3. PRUEBA DE ESCRITURA (guardarDatos)
         System.out.println("\n--- PRUEBA DE ESCRITURA ---");
 

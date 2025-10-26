@@ -4,14 +4,17 @@
  */
 package sistema_de_almacen;
 
-
-public class Sistema_de_almacen {
+/**
+ *
+ * @author HP SUPPORT
+ */
+public class Sistena_de_almacen {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args){
-
+    public static void main(String[] args) {
+       
     }
     
 }
