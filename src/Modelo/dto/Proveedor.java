@@ -4,11 +4,14 @@ public class Proveedor {
     //Atributos 
     private int IDproveedor;
     private String nombre;
-    private String telefono;
+    private int telefono;
     private String email;
+
+    public Proveedor() {
+    }
     
     //Constructoe
-    public Proveedor(int IDproveedor, String nombre, String telefono, String email) {
+    public Proveedor(int IDproveedor, String nombre, int telefono, String email) {
         this.IDproveedor = IDproveedor;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -31,11 +34,11 @@ public class Proveedor {
         this.nombre = nombre;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 

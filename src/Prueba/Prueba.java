@@ -7,6 +7,10 @@ package Prueba;
 import Excel.Excel;
 import Modelo.dto.Producto;
 import Modelo.dto.Usuario;
+import Modelo.dto.Categorias;
+import Modelo.dto.HistoriaVenta;
+import Modelo.dto.Proveedor;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -18,7 +22,7 @@ import sistema_de_almacen.InventarioProveedorControlador; //Importar el controla
  * @author andre
  */
 public class Prueba {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         // 1. CREA UNA INSTANCIA DE TU GESTOR
         Excel gestor = new Excel();
@@ -32,6 +36,9 @@ public class Prueba {
         // Extrae las listas del HashMap
         ArrayList<Producto> productos = (ArrayList<Producto>) datosCargados.get("Productos");
         ArrayList<Usuario> usuarios = (ArrayList<Usuario>) datosCargados.get("Usuarios");
+        ArrayList<Categorias> categorias = (ArrayList<Categorias>) datosCargados.get("Categorias");
+        ArrayList<Proveedor> proveedor = (ArrayList<Proveedor>) datosCargados.get("Proveedores");
+        ArrayList<HistoriaVenta> historial = (ArrayList<HistoriaVenta>) datosCargados.get("HistorialVentas");
 
         // --- VERIFICACIÓN DE LECTURA ---
         // Comprueba si realmente se cargaron los datos
@@ -53,7 +60,29 @@ public class Prueba {
             System.out.println("FALLO: No se cargaron usuarios.");
         }
         
+        if (categorias != null && !categorias.isEmpty()) {
+            System.out.println("¡ÉXITO! Se cargaron " + categorias.size() + " categorias.");
+            System.out.println("El primer usuario es: " + categorias.get(0).getNombreCategoria());
+        } else {
+            System.out.println("FALLO: No se cargaron categorias.");
+        }
+        
+        if (proveedor != null && !proveedor.isEmpty()) {
+            System.out.println("¡ÉXITO! Se cargaron " + proveedor.size() + " proveedor.");
+            System.out.println("El primer usuario es: " + proveedor.get(0).getNombre());
+        } else {
+            System.out.println("FALLO: No se cargaron proveedores.");
+        }
+        if (historial != null && !historial.isEmpty()) {
+            System.out.println("¡ÉXITO! Se cargaron " + historial.size() + " Historial.");
+            System.out.println("El primer usuario es: " + historial.get(0).getProductoVendido());
+        } else {
+            System.out.println("FALLO: No se cargo el historial.");
+        }
+        
+        
         System.out.println("\n--- FIN PRUEBA DE LECTURA ---");
+
         
         //ALERTAS(INVENTARIOPROVEEDORCONTROLADOR)
         
@@ -115,7 +144,7 @@ public class Prueba {
         // --- EJECUCIÓN DE ESCRITURA ---
         // Llama a tu método para guardar
         if (productos != null && usuarios != null) {
-            gestor.guardarDatos(productos, usuarios); // Pasa las listas actualizadas
+            gestor.guardarDatos(productos, usuarios, categorias, proveedor, historial ); // Pasa las listas actualizadas
             System.out.println("¡ÉXITO! Se intentó guardar los datos en el Excel.");
         } else {
             System.out.println("FALLO: No se pudo guardar porque las listas están vacías.");

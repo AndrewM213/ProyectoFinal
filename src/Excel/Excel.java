@@ -6,10 +6,15 @@ package Excel;
 
 import Modelo.dto.Producto;
 import Modelo.dto.Usuario;
+import Modelo.dto.Categorias;
+import Modelo.dto.Proveedor;
+import Modelo.dto.HistoriaVenta;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -41,16 +46,17 @@ public class Excel {
  y el valor es el ArrayList correspondiente.
      * @return 
      */
-    public Map<String, ArrayList<?>> cargarDatos() {
+    public Map<String, ArrayList<?>> cargarDatos() throws FileNotFoundException, IOException {
         Map<String, ArrayList<?>> datos = new HashMap<>();
         ArrayList<Usuario> listaUsuarios = new ArrayList<>();
         ArrayList<Producto> listaProductos = new ArrayList<>();
-        // ... (crear listas para Categorias, Proveedores, etc.)
+        ArrayList<Categorias> listaCategorias = new ArrayList<>();
+        ArrayList<Proveedor> listaProveedor = new ArrayList<>();
+        ArrayList<HistoriaVenta> listaHistorial = new ArrayList<>();
 
         try (FileInputStream fis = new FileInputStream(RUTA_EXCEL);
              Workbook workbook = new XSSFWorkbook(fis)) {
 
-            // --- 1. Cargar Usuarios ---
             Sheet sheetUsuarios = workbook.getSheet("Usuarios");
             for (Row row : sheetUsuarios) {
                 if (row.getRowNum() == 0) continue; // Saltar la cabecera
@@ -111,12 +117,74 @@ public class Excel {
                 listaProductos.add(prod);
             }
             
-            // ... (Cargar las otras hojas: Categorias, Proveedores...)
+            Sheet sheetCategorias = workbook.getSheet("Categorias");
+            for (Row row : sheetCategorias) {
+                if (row.getRowNum() == 0) continue; // Saltar la cabecera
+                
+                Categorias cat = new Categorias();
+                cat.setIdCategoria(row.getCell(0).getStringCellValue());
+                cat.setNombreCategoria(row.getCell(1).getStringCellValue());
+                listaCategorias.add(cat);
+            }
             
+            Sheet sheetProveedor = workbook.getSheet("Proveedores");
+            for (Row row : sheetProveedor) {
+                if (row.getRowNum() == 0) continue;
+                Proveedor prov = new Proveedor();
+                prov.setIDproveedor((int)row.getCell(0).getNumericCellValue());
+                prov.setNombre(row.getCell(1).getStringCellValue());
+                prov.setTelefono((int)row.getCell(2).getNumericCellValue());
+                prov.setEmail(row.getCell(3).getStringCellValue());
+                listaProveedor.add(prov);
+            }
+            
+            Sheet sheetHistoriaVenta = workbook.getSheet("HistorialVentas");
+            for (Row row : sheetHistoriaVenta) {
+                if (row.getRowNum() == 0) continue;
+                HistoriaVenta hisv = new HistoriaVenta();
+                hisv.setIdVenta(row.getCell(0).getStringCellValue());
+                Cell celdaFecha = row.getCell(1);
+            
+            // 1. ¿La celda existe y es de tipo NÚMERICO?
+            // (Excel guarda las fechas como números)
+            if (celdaFecha != null && celdaFecha.getCellType() == CellType.NUMERIC) {
+                
+                // 2. Doble chequeo: ¿Ese número tiene formato de fecha?
+                if (DateUtil.isCellDateFormatted(celdaFecha)) {
+                
+                    // 3. Obtiene la fecha como 'java.util.Date' (el formato antiguo)
+                    java.util.Date fechaAntigua = celdaFecha.getDateCellValue();
+
+                    // 4. Convierte la fecha antigua a 'java.time.LocalDate' (el moderno)
+                    LocalDate fechaNueva = fechaAntigua.toInstant()
+                                                       .atZone(ZoneId.systemDefault())
+                                                       .toLocalDate();
+
+                    // 5. Guarda la fecha moderna en el objeto
+                    hisv.setFecha(fechaNueva);
+                    
+                } else {
+                    // Es un número, pero no una fecha (quizás es el stock)
+                    hisv.setFecha(null);
+                }
+                
+            } else {
+                // La celda está vacía o es texto (ej. "N/A")
+                hisv.setFecha(null);
+            }
+                hisv.setIdUsuario(row.getCell(2).getStringCellValue());
+                hisv.setProductoVendido(row.getCell(3).getStringCellValue());
+                hisv.setCantidad((int)row.getCell(4).getNumericCellValue());
+                hisv.setTotal((double)row.getCell(5).getNumericCellValue());
+                listaHistorial.add(hisv);
+            }
+              
             // Poner las listas en el mapa para devolverlas
             datos.put("Usuarios", listaUsuarios);
             datos.put("Productos", listaProductos);
-            
+            datos.put("Categorias", listaCategorias);
+            datos.put("Proveedores", listaProveedor);
+            datos.put("HistorialVentas", listaHistorial);
             System.out.println("Datos cargados desde Excel exitosamente.");
 
         } catch (Exception e) {
@@ -127,6 +195,18 @@ public class Excel {
         return datos;
     }
 
+    /**
+     * Valida si un usuario y contraseña existen en la lista de usuarios.
+     * Esta lista fue cargada previamente desde el Excel.
+     */
+    /**
+     * Valida si un usuario y contraseña existen en la lista de usuarios.
+     * Esta lista fue cargada previamente desde el Excel.
+     */
+    /**
+     * Valida si un usuario y contraseña existen en la lista de usuarios.
+     * Esta lista fue cargada previamente desde el Excel.
+     */
     /**
      * Valida si un usuario y contraseña existen en la lista de usuarios.
      * Esta lista fue cargada previamente desde el Excel.
@@ -146,7 +226,9 @@ public class Excel {
      * ESTA ES LA FUNCIÓN QUE SE LLAMA AL CERRAR LA APP O AL DAR "GUARDAR".
      */
         
-     public void guardarDatos(ArrayList<Producto> productos, ArrayList<Usuario> usuarios) {
+     public void guardarDatos(ArrayList<Producto> productos, ArrayList<Usuario> usuarios, 
+             ArrayList<Categorias> categorias, ArrayList<Proveedor> proveedores, 
+             ArrayList<HistoriaVenta> historial) {
 
         try (FileInputStream fis = new FileInputStream(RUTA_EXCEL);
          Workbook workbook = new XSSFWorkbook(fis)) { // <-- 1. LEE EL ARCHIVO EXISTENTE
@@ -213,6 +295,80 @@ public class Excel {
             row.createCell(2).setCellValue(u.getContrasena());
             row.createCell(3).setCellValue(u.getRol());
         }
+        
+        Sheet sheetCategorias = workbook.getSheet("Categorias"); // Obtiene la hoja de Usuarios
+
+            // Limpia datos de Categorias
+        lastRow = sheetCategorias.getLastRowNum();
+        for (int i = lastRow; i >= 1; i--) {
+            Row row = sheetCategorias.getRow(i);
+            if (row != null) {
+                sheetCategorias.removeRow(row);
+            }
+        }
+        
+        // Escribe datos nuevos de usuarios
+        rowNum = 1;
+        for (Categorias c : categorias) {
+            Row row = sheetUsuarios.createRow(rowNum++);
+            row.createCell(0).setCellValue(c.getIdCategoria());
+            row.createCell(1).setCellValue(c.getNombreCategoria());
+        }
+        
+        Sheet sheetProveedor = workbook.getSheet("Proveedores"); // Obtiene la hoja de Usuarios
+
+            // Limpia datos de Categorias
+        lastRow = sheetProveedor.getLastRowNum();
+        for (int i = lastRow; i >= 1; i--) {
+            Row row = sheetProveedor.getRow(i);
+            if (row != null) {
+                sheetProveedor.removeRow(row);
+            }
+        }
+        
+        // Escribe datos nuevos de usuarios
+        rowNum = 1;
+        for (Proveedor pr : proveedores) {
+            Row row = sheetProveedor.createRow(rowNum++);
+            row.createCell(0).setCellValue(pr.getIDproveedor());
+            row.createCell(1).setCellValue(pr.getNombre());
+            row.createCell(2).setCellValue(pr.getTelefono());
+            row.createCell(3).setCellValue(pr.getEmail());
+        }
+        
+        Sheet sheetHistoralVenta = workbook.getSheet("HistorialVentas"); // Obtiene la hoja de Usuarios
+
+            // Limpia datos de Categorias
+        lastRow = sheetHistoralVenta.getLastRowNum();
+        for (int i = lastRow; i >= 1; i--) {
+            Row row = sheetHistoralVenta.getRow(i);
+            if (row != null) {
+                sheetHistoralVenta.removeRow(row);
+            }
+        }
+        
+        // Escribe datos nuevos de usuarios
+        rowNum = 1;
+        for (HistoriaVenta hv : historial) {
+            Row row = sheetHistoralVenta.createRow(rowNum++);
+            row.createCell(0).setCellValue(hv.getIdVenta());
+            Cell celdaFecha = row.createCell(1);
+            if (hv.getFecha()!= null) {
+                // Escribe el valor de la fecha
+               celdaFecha.setCellValue(hv.getFecha());
+                
+                // ¡¡APLICA EL ESTILO!!
+                // Si te falta esta línea, verás el número 46022
+                celdaFecha.setCellStyle(cellStyleFecha);
+            }
+            row.createCell(2).setCellValue(hv.getIdUsuario());
+            row.createCell(3).setCellValue(hv.getProductoVendido());
+            row.createCell(4).setCellValue(hv.getCantidad());
+            row.createCell(5).setCellValue(hv.getTotal());
+            
+        }
+        
+
 
         // --- (Repetir el proceso para Categorias, Proveedores, etc.) ---
 
