@@ -306,11 +306,9 @@ public class Excel {
                 sheetCategorias.removeRow(row);
             }
         }
-        
-        // Escribe datos nuevos de usuarios
         rowNum = 1;
         for (Categorias c : categorias) {
-            Row row = sheetUsuarios.createRow(rowNum++);
+            Row row = sheetCategorias.createRow(rowNum++);
             row.createCell(0).setCellValue(c.getIdCategoria());
             row.createCell(1).setCellValue(c.getNombreCategoria());
         }
