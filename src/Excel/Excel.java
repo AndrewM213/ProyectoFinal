@@ -37,7 +37,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *
  * @author andre
  */
-public class Excel {
+public class Excel implements Interfaces.IExcel{
    private static final String RUTA_EXCEL = "Inventario.xlsx";
 
     /**
@@ -46,7 +46,8 @@ public class Excel {
  y el valor es el ArrayList correspondiente.
      * @return 
      */
-    public Map<String, ArrayList<?>> cargarDatos() throws FileNotFoundException, IOException {
+   @Override
+    public Map<String, ArrayList<?>> cargarDatos(){
         Map<String, ArrayList<?>> datos = new HashMap<>();
         ArrayList<Usuario> listaUsuarios = new ArrayList<>();
         ArrayList<Producto> listaProductos = new ArrayList<>();
@@ -226,6 +227,7 @@ public class Excel {
      * ESTA ES LA FUNCIÓN QUE SE LLAMA AL CERRAR LA APP O AL DAR "GUARDAR".
      */
         
+   @Override
      public void guardarDatos(ArrayList<Producto> productos, ArrayList<Usuario> usuarios, 
              ArrayList<Categorias> categorias, ArrayList<Proveedor> proveedores, 
              ArrayList<HistoriaVenta> historial) {
