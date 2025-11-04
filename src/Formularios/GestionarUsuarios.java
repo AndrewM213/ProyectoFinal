@@ -69,6 +69,8 @@ public class GestionarUsuarios extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestion de usuarios");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         btnLimpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnLimpiar.setText("Limpiar");
@@ -164,7 +166,7 @@ public class GestionarUsuarios extends javax.swing.JFrame {
                         .addComponent(btnEliminar)
                         .addGap(28, 28, 28)
                         .addComponent(btnLimpiar)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
