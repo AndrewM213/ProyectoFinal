@@ -47,9 +47,9 @@ public class GestorSistema {
                     Path destino = Paths.get(GestorExcel.ARCHIVO_DATOS);
                     
                     Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
-                    JOptionPane.showMessageDialog(null, "✅ Base de datos restaurada. REINICIE LA APLICACIÓN para cargar los datos restaurados.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, " Base de datos restaurada. REINICIE LA APLICACIÓN para cargar los datos restaurados.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "❌ Error al restaurar la copia de seguridad.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, " Error al restaurar la copia de seguridad.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
