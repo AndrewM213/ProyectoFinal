@@ -4,10 +4,12 @@
  */
 package Formularios;
 
+
 /**
  *
  * @author andre
  */
+
 import Interfaces.IExcel;
 import Modelo.dto.Categorias;
 import Modelo.dto.HistoriaVenta;
@@ -15,6 +17,8 @@ import Modelo.dto.Producto;
 import Modelo.dto.Proveedor;
 import Modelo.dto.Usuario;
 import java.util.ArrayList;
+
+
 public class Principal extends javax.swing.JFrame {
 
     /**
@@ -27,7 +31,9 @@ public class Principal extends javax.swing.JFrame {
     private ArrayList<Categorias> listacategorias;
     private ArrayList<Proveedor> listaproveedores;
     private ArrayList<HistoriaVenta> listahistorial;
+  
     public Principal(IExcel excel,Usuario usuarioA,ArrayList<Producto> productos,
+          
             ArrayList<Usuario> usuarios,
             ArrayList<Categorias> categorias,
             ArrayList<Proveedor> proveedores,
@@ -59,6 +65,8 @@ public class Principal extends javax.swing.JFrame {
             btnReportes.setVisible(false);
             btnGestionU.setVisible(false);
             btnConfig.setVisible(false);
+            
+            
         }
     }
 
@@ -141,6 +149,11 @@ public class Principal extends javax.swing.JFrame {
 
         btnConfig.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 14)); // NOI18N
         btnConfig.setText("Configuración");
+        btnConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfigActionPerformed(evt);
+            }
+        });
 
         lblingreso.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 14)); // NOI18N
 
@@ -266,12 +279,22 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionPActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        // TODO add your handling code here:
+ System.out.print("xd");
+        VentanaReportes reportes = new VentanaReportes (this.listaproductos,this.listahistorial);
+        reportes.setVisible(true);
+        this.dispose();       
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowStateChanged
+
+    private void btnConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigActionPerformed
+ System.out.print("xd");
+        VentanaConfiguracion configuracion = new VentanaConfiguracion ();
+        configuracion.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConfigActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,6 +302,7 @@ public class Principal extends javax.swing.JFrame {
     public static void main(String args[]) {
         
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfig;
