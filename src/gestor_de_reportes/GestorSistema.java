@@ -1,5 +1,7 @@
 package gestor_de_reportes;
 
+import Excel.Excel;
+import Interfaces.IExcel;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,7 +21,7 @@ public class GestorSistema {
             String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String nombreCopia = "Backup_" + timestamp + ".xlsx";
             
-            Path origen = Paths.get(GestorExcel.ARCHIVO_DATOS);
+            Path origen = Paths.get(Excel.RUTA_EXCEL);
             Path destino = Paths.get(nombreCopia); 
 
      
@@ -44,7 +46,7 @@ public class GestorSistema {
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
                     Path origen = archivoCopia.toPath();
-                    Path destino = Paths.get(GestorExcel.ARCHIVO_DATOS);
+                    Path destino = Paths.get(Excel.RUTA_EXCEL);
                     
                     Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
                     JOptionPane.showMessageDialog(null, " Base de datos restaurada. REINICIE LA APLICACIÓN para cargar los datos restaurados.", "Éxito", JOptionPane.INFORMATION_MESSAGE);

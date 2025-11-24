@@ -38,7 +38,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @author andre
  */
 public class Excel implements Interfaces.IExcel{
-   private static final String RUTA_EXCEL = "Inventario.xlsx";
+   public static final String RUTA_EXCEL = "Inventario.xlsx";
 
     /**
      * Lee todas las hojas del Excel y las carga en ArrayLists.Devuelve un Mapa donde la clave es el nombre de la hoja (ej.

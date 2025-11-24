@@ -93,7 +93,7 @@ public class VentanaReportes extends javax.swing.JFrame {
                     .addComponent(btnExportarAgotados)
                     .addComponent(btnExportarVentas)
                     .addComponent(btnExportarInventario))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(311, Short.MAX_VALUE))
         );
 
         pack();
@@ -101,7 +101,33 @@ public class VentanaReportes extends javax.swing.JFrame {
 
     private void btnExportarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarInventarioActionPerformed
 // Llama al método de Inventario [cite: 37]
-    GestorReportes.generarReporteInventarioIExcel(listaProductos, "Reporte_Inventario.xlsx");        // TODO add your handling code here:
+    javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
+    fileChooser.setDialogTitle("Guardar Reporte de Inventario");
+    fileChooser.setSelectedFile(new java.io.File("Reporte_Inventario.xlsx"));
+
+    // 2. Mostrar la ventana para guardar
+    int userSelection = fileChooser.showSaveDialog(this);
+
+    // 3. ¡VERIFICAR SI EL USUARIO ELIGIÓ ALGO!
+    if (userSelection == javax.swing.JFileChooser.APPROVE_OPTION) {
+        
+        // 4. Obtener la ruta elegida
+        String rutaArchivo = fileChooser.getSelectedFile().getAbsolutePath();
+        
+        // Asegurarse de la extensión .xlsx
+        if (!rutaArchivo.endsWith(".xlsx")) {
+            rutaArchivo += ".xlsx";
+        }
+
+        // 5. LLAMAR AL MÉTODO SOLO SI TENEMOS LA RUTA
+        // (Asegúrate de pasarle la lista correcta: this.listaProductosGeneral)
+        gestor_de_reportes.GestorReportes.generarReporteInventarioExcel(this.listaProductos, rutaArchivo);
+        
+    } else {
+        // Si el usuario canceló, no hacemos nada (y evitamos el error NullPointerException)
+        System.out.println("Exportación cancelada por el usuario.");
+    }
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnExportarInventarioActionPerformed
 
     private void btnExportarAgotadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarAgotadosActionPerformed

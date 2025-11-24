@@ -193,9 +193,9 @@ public class GestionarUsuarios extends javax.swing.JFrame {
                     .addComponent(btnLimpiar)
                     .addComponent(btnEliminar)
                     .addComponent(btnModificar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         pack();

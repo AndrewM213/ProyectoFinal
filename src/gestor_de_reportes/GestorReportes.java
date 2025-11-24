@@ -11,7 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class GestorReportes {
 
-    private static String rutaArchivo;
+    public static String rutaArchivo;
     
    
     // El método ahora devuelve el Workbook (la plantilla de Excel)

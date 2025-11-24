@@ -47,6 +47,7 @@ public class Principal extends javax.swing.JFrame {
         this.listaproveedores = proveedores;
         this.listahistorial = historial;
         
+        
         lblingreso.setText("Usuario: " + usuarioA.getNombreUsuario());
         lblroll.setText("Rol: " + usuarioA.getRol());
         
