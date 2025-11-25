@@ -61,6 +61,7 @@ public class Login extends javax.swing.JFrame {
         btnIngresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("iniciar sesion");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 3, 18)); // NOI18N
         jLabel1.setText("Iniciar sesion");
@@ -109,7 +110,7 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(200, 200, 200)
                         .addComponent(btnIngresar)))
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,17 +143,17 @@ public class Login extends javax.swing.JFrame {
         String contraseña = new String(txtContraseña.getPassword());
         //llamamos al metodo de validar
         Usuario validado = validarLogin(usuario, contraseña);
-        
+
         if(validado != null ){
             JOptionPane.showMessageDialog(this, "Bienvenido, " + validado.getNombreUsuario());
-            Principal vPrincipal = new Principal(excel, 
-                    validado,
-                    listaproductos, 
-                    listausuarios, 
-                    listacategorias, 
-                    listaproveedores, 
-                    listahistorial
-                    );
+            Principal vPrincipal = new Principal(excel,
+                validado,
+                listaproductos,
+                listausuarios,
+                listacategorias,
+                listaproveedores,
+                listahistorial
+            );
             vPrincipal.setVisible(true);
             this.dispose();
         }

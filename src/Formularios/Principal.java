@@ -10,6 +10,7 @@ package Formularios;
  * @author andre
  */
 
+import Excel.Excel;
 import Interfaces.IExcel;
 import Modelo.dto.Categorias;
 import Modelo.dto.HistoriaVenta;
@@ -46,6 +47,8 @@ public class Principal extends javax.swing.JFrame {
         this.listacategorias = categorias;
         this.listaproveedores = proveedores;
         this.listahistorial = historial;
+        configurarGuardadoAutomatico();
+        
         
         
         lblingreso.setText("Usuario: " + usuarioA.getNombreUsuario());
@@ -96,7 +99,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Menú Principal");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
@@ -263,7 +266,7 @@ public class Principal extends javax.swing.JFrame {
         System.out.print("xd");
         GestionarUsuarios vusuarios = new GestionarUsuarios(this.listausuarios);
         vusuarios.setVisible(true);
-        this.dispose();
+        vusuarios.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnGestionUActionPerformed
 
     private void btnPuntoVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuntoVentaActionPerformed
@@ -296,7 +299,64 @@ public class Principal extends javax.swing.JFrame {
         configuracion.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnConfigActionPerformed
+private void configurarGuardadoAutomatico() {
+    
+    // 1. IMPORTANTE: Evita que la ventana se cierre sola inmediatamente
+    this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+    
+    // 2. Añade un "oyente" para detectar cuando presionan la "X"
+    this.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosing(java.awt.event.WindowEvent e) {
+            cerraAplicacion();
+        }
+    });
+}
 
+/**
+ * Lógica para preguntar, guardar y salir.
+ */
+private void cerraAplicacion() {
+    // 1. Preguntar al usuario
+    int opcion = javax.swing.JOptionPane.showConfirmDialog(
+            this, 
+            "¿Desea guardar los cambios realizados antes de salir?", 
+            "Guardado Automático", 
+            javax.swing.JOptionPane.YES_NO_CANCEL_OPTION,
+            javax.swing.JOptionPane.QUESTION_MESSAGE
+    );
+
+    // 2. Evaluar respuesta
+    if (opcion == javax.swing.JOptionPane.YES_OPTION) {
+        // --- OPCIÓN SÍ: Guardar y Salir ---
+        try {
+            System.out.println(">>> Guardando datos en Excel...");
+            
+            // LLAMADA AL GESTOR (Asegúrate de pasar las 5 listas)
+            excel.guardarDatos(
+                    listaproductos, 
+                    listausuarios, 
+                    listacategorias, 
+                    listaproveedores, 
+                    listahistorial
+            );
+            
+            javax.swing.JOptionPane.showMessageDialog(this, "Datos guardados correctamente. ¡Hasta luego!");
+            System.exit(0); // Cierra el programa totalmente
+            
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error crítico al guardar: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            // No cerramos la app para que el usuario pueda intentar arreglarlo (ej. cerrar el Excel si lo tiene abierto)
+        }
+        
+    } else if (opcion == javax.swing.JOptionPane.NO_OPTION) {
+        // --- OPCIÓN NO: Salir sin guardar ---
+        System.out.println(">>> Cerrando sin guardar.");
+        System.exit(0); // Cierra el programa
+        
+    } 
+    // --- OPCIÓN CANCELAR: No hace nada, se queda en la ventana ---
+}
     /**
      * @param args the command line arguments
      */
