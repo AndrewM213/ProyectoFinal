@@ -132,12 +132,62 @@ public class VentanaReportes extends javax.swing.JFrame {
 
     private void btnExportarAgotadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarAgotadosActionPerformed
 // Llama al método de Bajo Stock [cite: 39]
-    GestorReportes.generarReporteAgotadosIExcel(listaProductos, "Reporte_BajoStock.xlsx");        // TODO add your handling code here:
+    javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
+    fileChooser.setDialogTitle("Guardar Reporte de Stock");
+    fileChooser.setSelectedFile(new java.io.File("Reporte_bajoStock.xlsx"));
+
+    // 2. Mostrar la ventana para guardar
+    int userSelection = fileChooser.showSaveDialog(this);
+
+    // 3. ¡VERIFICAR SI EL USUARIO ELIGIÓ ALGO!
+    if (userSelection == javax.swing.JFileChooser.APPROVE_OPTION) {
+        
+        // 4. Obtener la ruta elegida
+        String rutaArchivo = fileChooser.getSelectedFile().getAbsolutePath();
+        
+        // Asegurarse de la extensión .xlsx
+        if (!rutaArchivo.endsWith(".xlsx")) {
+            rutaArchivo += ".xlsx";
+        }
+
+        // 5. LLAMAR AL MÉTODO SOLO SI TENEMOS LA RUTA
+        // (Asegúrate de pasarle la lista correcta: this.listaProductosGeneral)
+        gestor_de_reportes.GestorReportes.generarReporteAgotadosExcel(this.listaProductos, rutaArchivo);
+        
+    } else {
+        // Si el usuario canceló, no hacemos nada (y evitamos el error NullPointerException)
+        System.out.println("Exportación cancelada por el usuario.");
+    }
+        // TODO add your handling code here:
+           // TODO add your handling code here:
     }//GEN-LAST:event_btnExportarAgotadosActionPerformed
 
     private void btnExportarVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarVentasActionPerformed
-// Llama al método de Ventas (Tarea 3) [cite: 40]
-    GestorReportes.generarReporteVentasExcel(listaVentas, "Reporte_Ventas.xlsx");        // TODO add your handling code here:
+    javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
+    fileChooser.setDialogTitle("Guardar Reporte de Ventas");
+    fileChooser.setSelectedFile(new java.io.File("Reporte_Ventas.xlsx"));
+
+    // 2. Mostrar ventana de guardar
+    int userSelection = fileChooser.showSaveDialog(this);
+
+    // 3. Verificar si el usuario dio "Guardar"
+    if (userSelection == javax.swing.JFileChooser.APPROVE_OPTION) {
+        
+        // 4. ¡AQUÍ OBTENEMOS LA RUTA! (Esto es lo que te faltaba o estaba mal)
+        java.io.File archivoElegido = fileChooser.getSelectedFile();
+        String rutaSeleccionada = archivoElegido.getAbsolutePath();
+        
+        // Asegurar extensión .xlsx
+        if (!rutaSeleccionada.endsWith(".xlsx")) {
+            rutaSeleccionada += ".xlsx";
+        }
+
+        // 5. Llamar al gestor con la ruta CORRECTA
+        gestor_de_reportes.GestorReportes.generarReporteVentasExcel(this.listaVentas, rutaSeleccionada);
+        
+    } else {
+        System.out.println(">>> Exportación cancelada.");
+    }
     }//GEN-LAST:event_btnExportarVentasActionPerformed
 
     /**
