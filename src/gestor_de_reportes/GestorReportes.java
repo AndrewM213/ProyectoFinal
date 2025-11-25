@@ -56,7 +56,7 @@ public class GestorReportes {
 
     public static void generarReporteAgotadosExcel(ArrayList<Producto> listaProductos, String rutaArchivo) {
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Productos Agotados/Bajo Stock");
+        Sheet sheet = workbook.createSheet("ProductosAgotadosBajoStock");
         
         try {
             Row headerRow = sheet.createRow(0);
@@ -95,71 +95,59 @@ public class GestorReportes {
     }
        }
 
-    public static void generarReporteVentasExcel(ArrayList<HistoriaVenta> listaVentas, String ruta) {
-    /**
-     * Genera un reporte de ventas (HistoriaVenta) en formato Excel.
-     * @param listaVentas La lista de objetos HistoriaVenta a reportar.
-    // Código corregido (usando 'ruta' para que coincida con la firma del método):
-// (Asegúrate de cambiar también la línea en FileOutputStream y JOptionPane)
-
-public static void generarReporteVentasExcel(ArrayList<HistoriaVenta> listaVentas, String ruta) { // <- Usamos 'ruta'
-    // ...
-    // ...
-    try (FileOutputStream fileOut = new FileOutputStream(ruta)) { // <- Usamos 'ruta'
-        workbook.write(fileOut);
-    }
-    JOptionPane.showMessageDialog(null, "✅ Reporte de Ventas exportado a: " + ruta, "Éxito de Exportación", JOptionPane.INFORMATION_MESSAGE); // <- Usamos 'ruta'
-    // ...
-}
-     */
+    public static void generarReporteVentasExcel(ArrayList<HistoriaVenta> listaVentas, String rutaRecibida) {
     
-        Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Reporte de Ventas");
 
-        try {
-            // 1. Crear Fila de Encabezados
-            Row headerRow = sheet.createRow(0);
-            String[] columnas = {"ID Venta", "Fecha", "Usuario Vendedor", "Total Venta"};
-            for (int i = 0; i < columnas.length; i++) {
-                headerRow.createCell(i).setCellValue(columnas[i]);
-            }
+    Workbook workbook = new XSSFWorkbook();
+    Sheet sheet = workbook.createSheet("Reporte de Ventas");
 
-            // 2. Llenar los Datos
-            int rowNum = 1;
-            // Recorrer la lista de HistoriaVenta
-            for (HistoriaVenta venta : listaVentas) {
+    try {
+        // --- Cabecera ---
+        Row headerRow = sheet.createRow(0);
+        String[] columnas = {"ID Venta", "Fecha", "Usuario", "Producto", "Cantidad", "Total"};
+        for (int i = 0; i < columnas.length; i++) {
+            headerRow.createCell(i).setCellValue(columnas[i]);
+        }
+
+        // --- Datos ---
+        int rowNum = 1;
+        if (listaVentas != null) {
+            for (HistoriaVenta v : listaVentas) {
                 Row row = sheet.createRow(rowNum++);
                 
-                // Columna 1: ID Venta
-                row.createCell(0).setCellValue(venta.getCodigo()); 
-                
-                // Columna 2: Fecha
-                // Asume que getFecha() devuelve un String o tiene un toString() adecuado
-                row.createCell(1).setCellValue(venta.getFecha()); 
-                
-                // Columna 3: Usuario Vendedor
-                // Asume que tienes un método para obtener el nombre o ID del usuario vendedor
-                row.createCell(2).setCellValue(venta.getUsuario()); 
-                
-                // Columna 4: Total Venta
-                row.createCell(3).setCellValue(venta.getTotalVenta()); 
+                // Aquí usamos tu modelo. Si tu modelo tuviera error, fallaría AQUÍ, no antes.
+                row.createCell(0).setCellValue(v.getIdVenta());
+                row.createCell(1).setCellValue(v.getFecha().toString());
+                row.createCell(2).setCellValue(v.getIdUsuario());
+                row.createCell(3).setCellValue(v.getProductoVendido());
+                row.createCell(4).setCellValue(v.getCantidad());
+                row.createCell(5).setCellValue(v.getTotal());
             }
-
-            // 3. Ajustar Columnas y Escribir el Archivo
-            for (int i = 0; i < columnas.length; i++) { sheet.autoSizeColumn(i); }
-            
-            try (FileOutputStream fileOut = new FileOutputStream(rutaArchivo)) {
-                workbook.write(fileOut);
-            }
-            
-            JOptionPane.showMessageDialog(null, " Reporte de Ventas exportado a: " + rutaArchivo, "Éxito de Exportación", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al generar el reporte Excel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            try { workbook.close(); } catch (IOException e) { }
         }
-    }   
+
+        // --- Ajustar columnas ---
+        for (int i = 0; i < columnas.length; i++) { 
+            sheet.autoSizeColumn(i); 
+        }
+
+        // --- GUARDAR EL ARCHIVO (Aquí es donde te daba error) ---
+        // Usamos la variable 'rutaArchivo' que recibimos arriba
+        try (FileOutputStream fileOut = new FileOutputStream(rutaRecibida)) {
+            workbook.write(fileOut);
+        }
+        
+        JOptionPane.showMessageDialog(null, "✅ Reporte de ventas exportado a: " + rutaRecibida);
+
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "❌ Error IO: " + e.getMessage());
+        e.printStackTrace();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "❌ Error General: " + e.getMessage());
+        e.printStackTrace();
+    } finally {
+        try { workbook.close(); } catch (IOException e) {}
+    }
+    }
 
     public static void generarReporteInventarioIExcel(ArrayList<Producto> listaProductos, String reporte_Inventarioxlsx) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
