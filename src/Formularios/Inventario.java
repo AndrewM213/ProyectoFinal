@@ -6,7 +6,7 @@ package Formularios;
 
 import Modelo.dto.Producto;
 import gestor_de_reportes.ActualizarInventario;
-import gestor_de_reportes.ActualizarTablaVentas;
+import Metodos.ActualizarTablaVentas;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -137,7 +137,7 @@ public class Inventario extends javax.swing.JFrame {
 
             // 5. LLAMAR AL MÉTODO SOLO SI TENEMOS LA RUTA
             // (Asegúrate de pasarle la lista correcta: this.listaProductosGeneral)
-            gestor_de_reportes.GestorReportes.generarReporteInventarioExcel(this.listaGeneralP, rutaArchivo);
+            Metodos.GestorReportes.generarReporteInventarioExcel(this.listaGeneralP, rutaArchivo);
 
         } else {
             // Si el usuario canceló, no hacemos nada (y evitamos el error NullPointerException)

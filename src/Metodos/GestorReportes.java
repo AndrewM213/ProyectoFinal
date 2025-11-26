@@ -1,4 +1,4 @@
- package gestor_de_reportes;
+ package Metodos;
 
 import Modelo.dto.HistoriaVenta;
 import Modelo.dto.Producto;

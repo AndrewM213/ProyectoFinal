@@ -15,7 +15,6 @@ import Modelo.dto.Producto;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 public class ActualizarInventario {
-    private ArrayList<HistoriaVenta> listaVentas;
     private ArrayList<Producto> listaProductos; 
     private DefaultTableModel Tabla;    
 
@@ -38,17 +37,20 @@ public class ActualizarInventario {
             this.Tabla.addRow(fila);
         }
     }
-    public void actualizarTablaStock() {
-        this.Tabla.setRowCount(0); // Limpia
-        for (Producto pro : this.listaProductos) {
-            Object[] fila = {
-                pro.getCodigo(),
-                pro.getNombre(),
-                pro.getStock(),
-                pro.getStockMinimo(),
-            };
-            this.Tabla.addRow(fila);
+    
+    public void actualizarTablaStock(){
+        this.Tabla.setRowCount(0);
+        int encontrados = 0;
+        for (Producto pro : this.listaProductos){
+            if(pro.getStock() <= pro.getStockMinimo()){
+                Object[] fila = {
+                    pro.getCodigo(),
+                    pro.getNombre(),
+                    pro.getStock(),
+                    pro.getStockMinimo(), 
+                };
+                this.Tabla.addRow(fila);
+            }
         }
     }
-     
 }

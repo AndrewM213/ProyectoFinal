@@ -263,7 +263,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGestionUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionUActionPerformed
-        System.out.print("xd");
+
         GestionarUsuarios vusuarios = new GestionarUsuarios(this.listausuarios);
         vusuarios.setVisible(true);
         vusuarios.setLocationRelativeTo(this);
@@ -272,6 +272,7 @@ public class Principal extends javax.swing.JFrame {
     private void btnPuntoVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuntoVentaActionPerformed
         PuntodeVenta venta = new PuntodeVenta();
         venta.setVisible(true);
+        venta.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnPuntoVentaActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
@@ -283,10 +284,9 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionPActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
- System.out.print("xd");
         VentanaReportes reportes = new VentanaReportes (this.listaproductos,this.listahistorial);
         reportes.setVisible(true);
-        this.dispose();       
+        reportes.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
@@ -294,10 +294,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowStateChanged
 
     private void btnConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigActionPerformed
- System.out.print("xd");
-        VentanaConfiguracion configuracion = new VentanaConfiguracion ();
+
+        Configuracion configuracion = new Configuracion ();
         configuracion.setVisible(true);
-        this.dispose();        // TODO add your handling code here:
+        configuracion.setLocationRelativeTo(this);
+      // TODO add your handling code here:
     }//GEN-LAST:event_btnConfigActionPerformed
 private void configurarGuardadoAutomatico() {
     

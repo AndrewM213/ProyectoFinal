@@ -1,4 +1,4 @@
-package gestor_de_reportes;
+package Metodos;
 
 import Excel.Excel;
 import Interfaces.IExcel;
@@ -29,7 +29,7 @@ public class GestorSistema {
             Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
             JOptionPane.showMessageDialog(null, " Copia de seguridad creada: " + nombreCopia, "Éxito (Req. 37)", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, " Error al crear la copia de seguridad. Asegúrese de que el archivo principal (" + GestorExcel.ARCHIVO_DATOS + ") exista y no esté en uso.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, " Error al crear la copia de seguridad. Asegúrese de que el archivo principal (" + Excel.RUTA_EXCEL + ") exista y no esté en uso.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

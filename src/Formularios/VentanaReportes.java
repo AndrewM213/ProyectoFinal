@@ -6,8 +6,8 @@ package Formularios;
 import Modelo.dto.HistoriaVenta;
 import Modelo.dto.Producto;
 import gestor_de_reportes.ActualizarInventario;
-import gestor_de_reportes.ActualizarTablaVentas;
-import gestor_de_reportes.GestorReportes; 
+import Metodos.ActualizarTablaVentas;
+import Metodos.GestorReportes; 
 import java.util.ArrayList; 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,9 +19,6 @@ public class VentanaReportes extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaReportes.class.getName());
     
     // 1. Declarar variables internas (para guardar las listas recibidas)
-    private ActualizarInventario gestionI;
-    private ActualizarTablaVentas gestionV;
-    
     private ArrayList<Producto> listaGeneralP; 
     private ArrayList<HistoriaVenta> listaGeneralV; // O listaHistorial, usa el nombre que tengas en Principal.java
 
@@ -29,10 +26,7 @@ public class VentanaReportes extends javax.swing.JFrame {
     public VentanaReportes(ArrayList<Producto> listaProductos, ArrayList<HistoriaVenta> listaVentas) {
         initComponents();
         this.listaGeneralV = listaVentas;
-        setLocationRelativeTo(null);
-        DefaultTableModel tabla = (DefaultTableModel) tablaU.getModel();
-        this.gestionV = new ActualizarTablaVentas(this.listaGeneralV, tabla);
-        gestionV.actualizarTablaVentas();
+        this.listaGeneralP = listaProductos;
         }
     
 
@@ -55,8 +49,7 @@ public class VentanaReportes extends javax.swing.JFrame {
         btnExportarInventario = new javax.swing.JButton();
         btnExportarAgotados = new javax.swing.JButton();
         btnExportarVentas = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaU = new javax.swing.JTable();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,51 +74,38 @@ public class VentanaReportes extends javax.swing.JFrame {
             }
         });
 
-        tablaU.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "idVentas", "fecha", "idUsuario", "Producto Vendido", "Cantidad", "Total"
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
             }
-        ));
-        jScrollPane2.setViewportView(tablaU);
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(btnExportarInventario))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnExportarVentas)
-                            .addComponent(btnExportarAgotados))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 27, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                    .addComponent(btnVolver)
+                    .addComponent(btnExportarInventario)
+                    .addComponent(btnExportarVentas)
+                    .addComponent(btnExportarAgotados))
+                .addContainerGap(344, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(44, 44, 44)
+                .addComponent(btnVolver)
+                .addGap(76, 76, 76)
                 .addComponent(btnExportarInventario)
                 .addGap(38, 38, 38)
                 .addComponent(btnExportarAgotados)
                 .addGap(41, 41, 41)
                 .addComponent(btnExportarVentas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(224, Short.MAX_VALUE))
         );
 
         pack();
@@ -138,64 +118,20 @@ public class VentanaReportes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExportarInventarioActionPerformed
 
     private void btnExportarAgotadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarAgotadosActionPerformed
-// Llama al método de Bajo Stock [cite: 39]
-    javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
-    fileChooser.setDialogTitle("Guardar Reporte de Stock");
-    fileChooser.setSelectedFile(new java.io.File("Reporte_bajoStock.xlsx"));
-
-    // 2. Mostrar la ventana para guardar
-    int userSelection = fileChooser.showSaveDialog(this);
-
-    // 3. ¡VERIFICAR SI EL USUARIO ELIGIÓ ALGO!
-    if (userSelection == javax.swing.JFileChooser.APPROVE_OPTION) {
-        
-        // 4. Obtener la ruta elegida
-        String rutaArchivo = fileChooser.getSelectedFile().getAbsolutePath();
-        
-        // Asegurarse de la extensión .xlsx
-        if (!rutaArchivo.endsWith(".xlsx")) {
-            rutaArchivo += ".xlsx";
-        }
-
-        // 5. LLAMAR AL MÉTODO SOLO SI TENEMOS LA RUTA
-        // (Asegúrate de pasarle la lista correcta: this.listaProductosGeneral)
-        gestor_de_reportes.GestorReportes.generarReporteAgotadosExcel(this.listaGeneralP, rutaArchivo);
-        
-    } else {
-        // Si el usuario canceló, no hacemos nada (y evitamos el error NullPointerException)
-        System.out.println("Exportación cancelada por el usuario.");
-    }
-        // TODO add your handling code here:
-           // TODO add your handling code here:
+        BajoStock bajoStock = new BajoStock(this.listaGeneralP);
+        bajoStock.setVisible(true);
+        bajoStock.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnExportarAgotadosActionPerformed
 
     private void btnExportarVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarVentasActionPerformed
-    javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
-    fileChooser.setDialogTitle("Guardar Reporte de Ventas");
-    fileChooser.setSelectedFile(new java.io.File("Reporte_Ventas.xlsx"));
-
-    // 2. Mostrar ventana de guardar
-    int userSelection = fileChooser.showSaveDialog(this);
-
-    // 3. Verificar si el usuario dio "Guardar"
-    if (userSelection == javax.swing.JFileChooser.APPROVE_OPTION) {
-        
-        // 4. ¡AQUÍ OBTENEMOS LA RUTA! (Esto es lo que te faltaba o estaba mal)
-        java.io.File archivoElegido = fileChooser.getSelectedFile();
-        String rutaSeleccionada = archivoElegido.getAbsolutePath();
-        
-        // Asegurar extensión .xlsx
-        if (!rutaSeleccionada.endsWith(".xlsx")) {
-            rutaSeleccionada += ".xlsx";
-        }
-
-        // 5. Llamar al gestor con la ruta CORRECTA
-        gestor_de_reportes.GestorReportes.generarReporteVentasExcel(this.listaGeneralV, rutaSeleccionada);
-        
-    } else {
-        System.out.println(">>> Exportación cancelada.");
-    }
+        Ventas hVentas = new Ventas(this.listaGeneralV);
+        hVentas.setVisible(true);
+        hVentas.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnExportarVentasActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,7 +162,6 @@ public class VentanaReportes extends javax.swing.JFrame {
     private javax.swing.JButton btnExportarAgotados;
     private javax.swing.JButton btnExportarInventario;
     private javax.swing.JButton btnExportarVentas;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tablaU;
+    private javax.swing.JButton btnVolver;
     // End of variables declaration//GEN-END:variables
 }
