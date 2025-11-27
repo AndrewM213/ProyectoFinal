@@ -270,9 +270,14 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionUActionPerformed
 
     private void btnPuntoVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuntoVentaActionPerformed
-        PuntodeVenta venta = new PuntodeVenta();
-        venta.setVisible(true);
-        venta.setLocationRelativeTo(this);
+        PuntodeVenta vVentas = new PuntodeVenta(
+            this.listaproductos,
+            this.listahistorial,
+            this.usuarioA
+    
+        );
+    vVentas.setVisible(true);
+    vVentas.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnPuntoVentaActionPerformed
 
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
