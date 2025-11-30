@@ -1,6 +1,5 @@
 package Metodos;
 
-import Excel.Excel;
 import Interfaces.IExcel;
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +20,7 @@ public class GestorSistema {
             String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String nombreCopia = "Backup_" + timestamp + ".xlsx";
             
-            Path origen = Paths.get(Excel.RUTA_EXCEL);
+            Path origen = Paths.get(IExcel.RUTA_EXCEL);
             Path destino = Paths.get(nombreCopia); 
 
      
@@ -29,7 +28,7 @@ public class GestorSistema {
             Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
             JOptionPane.showMessageDialog(null, " Copia de seguridad creada: " + nombreCopia, "Éxito (Req. 37)", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, " Error al crear la copia de seguridad. Asegúrese de que el archivo principal (" + Excel.RUTA_EXCEL + ") exista y no esté en uso.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, " Error al crear la copia de seguridad. Asegúrese de que el archivo principal (" + IExcel.RUTA_EXCEL + ") exista y no esté en uso.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -46,7 +45,7 @@ public class GestorSistema {
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
                     Path origen = archivoCopia.toPath();
-                    Path destino = Paths.get(Excel.RUTA_EXCEL);
+                    Path destino = Paths.get(IExcel.RUTA_EXCEL);
                     
                     Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
                     JOptionPane.showMessageDialog(null, " Base de datos restaurada. REINICIE LA APLICACIÓN para cargar los datos restaurados.", "Éxito", JOptionPane.INFORMATION_MESSAGE);

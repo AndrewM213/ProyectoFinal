@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gestor_de_reportes;
+package Metodos;
 
-import Modelo.dto.HistoriaVenta;
 import Modelo.dto.Producto;
 
 /**
@@ -40,7 +39,6 @@ public class ActualizarInventario {
     
     public void actualizarTablaStock(){
         this.Tabla.setRowCount(0);
-        int encontrados = 0;
         for (Producto pro : this.listaProductos){
             if(pro.getStock() <= pro.getStockMinimo()){
                 Object[] fila = {

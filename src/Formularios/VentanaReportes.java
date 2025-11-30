@@ -5,12 +5,8 @@
 package Formularios;
 import Modelo.dto.HistoriaVenta;
 import Modelo.dto.Producto;
-import gestor_de_reportes.ActualizarInventario;
-import Metodos.ActualizarTablaVentas;
-import Metodos.GestorReportes; 
 import java.util.ArrayList; 
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author diazq
@@ -53,21 +49,21 @@ public class VentanaReportes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnExportarInventario.setText("Exportar Inventario");
+        btnExportarInventario.setText("Inventario actualizado");
         btnExportarInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportarInventarioActionPerformed(evt);
             }
         });
 
-        btnExportarAgotados.setText("Exportar Bajo Stock");
+        btnExportarAgotados.setText("Productos con bajo stock");
         btnExportarAgotados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportarAgotadosActionPerformed(evt);
             }
         });
 
-        btnExportarVentas.setText("Exportar Ventas");
+        btnExportarVentas.setText("Ventas realizadas");
         btnExportarVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportarVentasActionPerformed(evt);
@@ -92,7 +88,7 @@ public class VentanaReportes extends javax.swing.JFrame {
                     .addComponent(btnExportarInventario)
                     .addComponent(btnExportarVentas)
                     .addComponent(btnExportarAgotados))
-                .addContainerGap(344, Short.MAX_VALUE))
+                .addContainerGap(315, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

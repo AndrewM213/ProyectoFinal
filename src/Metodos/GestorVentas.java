@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controlador;
+package Metodos;
 
 import Modelo.dto.CarroCompra;
 import Modelo.dto.HistoriaVenta;
@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class VentaControlador {
+public class GestorVentas {
     // --- Listas de Datos ---
     private ArrayList<Producto> listaProductos;
     private ArrayList<HistoriaVenta> listaHistorialVentas;
@@ -29,7 +29,7 @@ public class VentaControlador {
     private JLabel lblTotal;
 
     // Constructor
-    public VentaControlador(ArrayList<Producto> p, ArrayList<HistoriaVenta> v, Usuario u, DefaultTableModel m, JLabel lbl) {
+    public GestorVentas(ArrayList<Producto> p, ArrayList<HistoriaVenta> v, Usuario u, DefaultTableModel m, JLabel lbl) {
         this.listaProductos = p;
         this.listaHistorialVentas = v;
         this.usuarioActual = u;
