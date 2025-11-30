@@ -259,6 +259,9 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnGestionPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionPActionPerformed
         // TODO add your handling code here:
+        VentanaProductos2 vProd = new VentanaProductos2(this.listaproductos, this.listacategorias);
+        vProd.setVisible(true);
+        vProd.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnGestionPActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
