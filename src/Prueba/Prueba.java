@@ -13,9 +13,8 @@ import Modelo.dto.Proveedor;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Map;
-import sistema_de_almacen.InventarioProveedorControlador; //Importar el controlador
+import Metodos.GestorInventarioproveedor; //Importar el controlador
 
 /**
  *
@@ -90,8 +89,8 @@ public class Prueba {
         
         ArrayList<Modelo.dto.Proveedor> proveedores = new ArrayList<>();
         
-        InventarioProveedorControlador controladorInventario = 
-                new InventarioProveedorControlador(productos, proveedores);
+        GestorInventarioproveedor controladorInventario = 
+                new GestorInventarioproveedor(productos, proveedores);
         
         if (productos != null && !productos.isEmpty()){
             Producto productoAProbar = productos.get(0);

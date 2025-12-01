@@ -42,6 +42,10 @@
                       <EmptySpace pref="68" max="32767" attributes="0"/>
                   </Group>
               </Group>
+<<<<<<< HEAD
+=======
+              <EmptySpace pref="315" max="32767" attributes="0"/>
+>>>>>>> 059dbc8d4b43dfeee1ecacd1391a6735e51d8a29
           </Group>
       </Group>
     </DimensionLayout>
@@ -64,10 +68,14 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnExportarInventario">
       <Properties>
+<<<<<<< HEAD
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Exportar Inventario"/>
+=======
+        <Property name="text" type="java.lang.String" value="Inventario actualizado"/>
+>>>>>>> 059dbc8d4b43dfeee1ecacd1391a6735e51d8a29
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportarInventarioActionPerformed"/>
@@ -75,10 +83,14 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnExportarAgotados">
       <Properties>
+<<<<<<< HEAD
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Exportar Bajo Stock"/>
+=======
+        <Property name="text" type="java.lang.String" value="Productos con bajo stock"/>
+>>>>>>> 059dbc8d4b43dfeee1ecacd1391a6735e51d8a29
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportarAgotadosActionPerformed"/>
@@ -86,10 +98,14 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnExportarVentas">
       <Properties>
+<<<<<<< HEAD
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Exportar Ventas"/>
+=======
+        <Property name="text" type="java.lang.String" value="Ventas realizadas"/>
+>>>>>>> 059dbc8d4b43dfeee1ecacd1391a6735e51d8a29
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportarVentasActionPerformed"/>

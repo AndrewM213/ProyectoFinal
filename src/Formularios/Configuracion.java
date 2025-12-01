@@ -104,12 +104,12 @@ public class Configuracion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnResCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResCopiaActionPerformed
-        GestorSistema.crearCopiaSeguridad();
-        JOptionPane.showMessageDialog(null, " Copia de Seguridad creada con éxito.");
+        GestorSistema.restaurarCopiaSeguridad();
     }//GEN-LAST:event_btnResCopiaActionPerformed
 
     private void btnCrearCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCopiaActionPerformed
-        GestorSistema.restaurarCopiaSeguridad();
+        GestorSistema.crearCopiaSeguridad();
+        JOptionPane.showMessageDialog(null, " Copia de Seguridad creada con éxito.");
     }//GEN-LAST:event_btnCrearCopiaActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed

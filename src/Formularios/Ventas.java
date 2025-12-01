@@ -91,7 +91,11 @@ public class Ventas extends javax.swing.JFrame {
                         .addComponent(btnVolver)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)))
+<<<<<<< HEAD
                 .addContainerGap(205, Short.MAX_VALUE))
+=======
+                .addContainerGap(68, Short.MAX_VALUE))
+>>>>>>> 059dbc8d4b43dfeee1ecacd1391a6735e51d8a29
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +106,11 @@ public class Ventas extends javax.swing.JFrame {
                     .addComponent(jButton2))
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+=======
+                .addContainerGap(56, Short.MAX_VALUE))
+>>>>>>> 059dbc8d4b43dfeee1ecacd1391a6735e51d8a29
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

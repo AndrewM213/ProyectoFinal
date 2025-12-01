@@ -5,12 +5,8 @@
 package Formularios;
 import Modelo.dto.HistoriaVenta;
 import Modelo.dto.Producto;
-import gestor_de_reportes.ActualizarInventario;
-import Metodos.ActualizarTablaVentas;
-import Metodos.GestorReportes; 
 import java.util.ArrayList; 
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author diazq
@@ -54,24 +50,36 @@ public class VentanaReportes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
 
+<<<<<<< HEAD
         btnExportarInventario.setBackground(new java.awt.Color(255, 204, 204));
         btnExportarInventario.setText("Exportar Inventario");
+=======
+        btnExportarInventario.setText("Inventario actualizado");
+>>>>>>> 059dbc8d4b43dfeee1ecacd1391a6735e51d8a29
         btnExportarInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportarInventarioActionPerformed(evt);
             }
         });
 
+<<<<<<< HEAD
         btnExportarAgotados.setBackground(new java.awt.Color(255, 204, 204));
         btnExportarAgotados.setText("Exportar Bajo Stock");
+=======
+        btnExportarAgotados.setText("Productos con bajo stock");
+>>>>>>> 059dbc8d4b43dfeee1ecacd1391a6735e51d8a29
         btnExportarAgotados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportarAgotadosActionPerformed(evt);
             }
         });
 
+<<<<<<< HEAD
         btnExportarVentas.setBackground(new java.awt.Color(255, 204, 204));
         btnExportarVentas.setText("Exportar Ventas");
+=======
+        btnExportarVentas.setText("Ventas realizadas");
+>>>>>>> 059dbc8d4b43dfeee1ecacd1391a6735e51d8a29
         btnExportarVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportarVentasActionPerformed(evt);
@@ -93,6 +101,7 @@ public class VentanaReportes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnExportarVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -102,6 +111,13 @@ public class VentanaReportes extends javax.swing.JFrame {
                             .addComponent(btnExportarAgotados, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnExportarInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(68, Short.MAX_VALUE))))
+=======
+                    .addComponent(btnVolver)
+                    .addComponent(btnExportarInventario)
+                    .addComponent(btnExportarVentas)
+                    .addComponent(btnExportarAgotados))
+                .addContainerGap(315, Short.MAX_VALUE))
+>>>>>>> 059dbc8d4b43dfeee1ecacd1391a6735e51d8a29
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

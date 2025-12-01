@@ -5,7 +5,7 @@
 package Formularios;
 
 import Modelo.dto.Producto;
-import gestor_de_reportes.ActualizarInventario;
+import Metodos.ActualizarInventario;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 

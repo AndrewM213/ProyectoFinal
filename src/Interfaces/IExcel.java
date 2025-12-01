@@ -17,6 +17,7 @@ import Modelo.dto.Producto;
 import Modelo.dto.Proveedor;
 import Modelo.dto.Usuario;
 public interface IExcel {
+    public static final String RUTA_EXCEL = "Inventario.xlsx";
     Map<String, ArrayList<?>> cargarDatos();
     
     void guardarDatos(ArrayList<Producto> productos,

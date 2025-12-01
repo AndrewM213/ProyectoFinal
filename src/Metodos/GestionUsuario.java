@@ -21,67 +21,39 @@ public class GestionUsuario {
         this.Tabla = modeloTabla;
     }
 
-    /**
-     * Lógica para refrescar la tabla.
-     * Es invocado por la ventana.
-     */
     public void actualizarTabla() {
-        this.Tabla.setRowCount(0); // Limpia
-        for (Usuario user : this.listaUsuarios) {
+        this.Tabla.setRowCount(0);
+        for (Usuario usuario : this.listaUsuarios) {
             Object[] fila = {
-                user.getIdUsuario(),
-                user.getNombreUsuario(),
-                user.getRol()
+                usuario.getIdUsuario(),
+                usuario.getNombreUsuario(),
+                usuario.getRol()
             };
             this.Tabla.addRow(fila);
         }
     }
 
-    /**
-     * Lógica para guardar un nuevo usuario.
-     * Es invocado por el botón "Guardar" de la ventana.
-     */
-    public boolean guardarUsuario(String id, String nombre, String pass, String rol) {
-        // 1. Validaciones
-        if (id.isEmpty() || nombre.isEmpty() || pass.isEmpty()) {
-            return false; // Faltan datos
+    public boolean guardarUsuario(String id, String nombre, String contraseña, String rol) {
+        if (id.isEmpty() || nombre.isEmpty() || contraseña.isEmpty()) {
+            return false;
         }
-        
-        // 2. Crea el objeto
-        Usuario nuevoUsuario = new Usuario(id, nombre, pass, rol);
-        
-        // 3. Añade al ArrayList
+        Usuario nuevoUsuario = new Usuario(id, nombre, contraseña, rol);
         this.listaUsuarios.add(nuevoUsuario);
-        
-        // 4. Refresca la tabla
         actualizarTabla();
-        return true; // Éxito
+        return true;
     }
 
-    /**
-     * Lógica para eliminar un usuario.
-     * Es invocado por el botón "Eliminar" de la ventana.
-     */
     public void eliminarUsuario(int filaSeleccionada) {
         this.listaUsuarios.remove(filaSeleccionada);
         actualizarTabla();
     }
-    
-    /**
-     * Lógica para modificar un usuario.
-     * Es invocado por el botón "Modificar" de la ventana.
-     */
+
     public void modificarUsuario(int filaSeleccionada, String id, String nombre, String pass, String rol) {
-        // 1. Obtiene el objeto original
-        Usuario user = this.listaUsuarios.get(filaSeleccionada);
-            
-        // 2. Modifica sus datos
-        user.setIdUsuario(id);
-        user.setNombreUsuario(nombre);
-        user.setContrasena(pass);
-        user.setRol(rol);
-            
-        // 3. Refresca la tabla
+        Usuario usuario = this.listaUsuarios.get(filaSeleccionada);       
+        usuario.setIdUsuario(id);
+        usuario.setNombreUsuario(nombre);
+        usuario.setContrasena(pass);
+        usuario.setRol(rol);
         actualizarTabla();
     }
     

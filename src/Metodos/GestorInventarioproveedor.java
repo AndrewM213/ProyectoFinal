@@ -1,16 +1,16 @@
-package sistema_de_almacen;
+package Metodos;
 
 import Modelo.dto.Producto;
 import Modelo.dto.Proveedor;
 import java.util.ArrayList;
         
-public class InventarioProveedorControlador {
+public class GestorInventarioproveedor {
     //Atributos 
     private ArrayList<Producto> listaProductos;
     private ArrayList<Proveedor> listaProveedor;
     
     //Constructor 
-    public InventarioProveedorControlador(ArrayList<Producto> listaProductos, ArrayList<Proveedor> listaProveedor) {
+    public GestorInventarioproveedor(ArrayList<Producto> listaProductos, ArrayList<Proveedor> listaProveedor) {
         this.listaProductos = listaProductos;
         this.listaProveedor = listaProveedor;
     }
