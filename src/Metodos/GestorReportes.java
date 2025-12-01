@@ -136,13 +136,13 @@ public class GestorReportes {
             workbook.write(fileOut);
         }
         
-        JOptionPane.showMessageDialog(null, "✅ Reporte de ventas exportado a: " + rutaRecibida);
+        JOptionPane.showMessageDialog(null, " Reporte de ventas exportado a: " + rutaRecibida);
 
     } catch (IOException e) {
-        JOptionPane.showMessageDialog(null, "❌ Error IO: " + e.getMessage());
+        JOptionPane.showMessageDialog(null, " Error IO: " + e.getMessage());
         e.printStackTrace();
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "❌ Error General: " + e.getMessage());
+        JOptionPane.showMessageDialog(null, " Error General: " + e.getMessage());
         e.printStackTrace();
     } finally {
         try { workbook.close(); } catch (IOException e) {}
@@ -150,11 +150,11 @@ public class GestorReportes {
     }
 
     public static void generarReporteInventarioIExcel(ArrayList<Producto> listaProductos, String reporte_Inventarioxlsx) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("No soportado"); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public static void generarReporteAgotadosIExcel(ArrayList<Producto> listaProductos, String reporte_BajoStockxlsx) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("aun no es compatible."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     }
     

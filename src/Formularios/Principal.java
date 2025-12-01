@@ -318,46 +318,56 @@ private void configurarGuardadoAutomatico() {
  * Lógica para preguntar, guardar y salir.
  */
 private void cerraAplicacion() {
-    // 1. Preguntar al usuario
-    int opcion = javax.swing.JOptionPane.showConfirmDialog(
-            this, 
-            "¿Desea guardar los cambios realizados antes de salir?", 
-            "Guardado Automático", 
-            javax.swing.JOptionPane.YES_NO_CANCEL_OPTION,
-            javax.swing.JOptionPane.QUESTION_MESSAGE
+    // 1. Crear un array con los textos de los botones en español
+    Object[] opciones = {"Sí", "No", "Cancelar"}; // <--- ¡AÑADIDO!
+
+    // 1. Preguntar al usuario con showOptionDialog
+    int opcion = javax.swing.JOptionPane.showOptionDialog( // <--- ¡CAMBIO AQUÍ!
+            this,
+            "¿Desea guardar los cambios realizados antes de salir?",
+            "Guardado Automático",
+            // Mantenemos esta constante para la compatibilidad lógica
+            javax.swing.JOptionPane.YES_NO_CANCEL_OPTION, 
+            javax.swing.JOptionPane.QUESTION_MESSAGE,
+            null, // Icono personalizado (null para usar el predeterminado)
+            opciones, // <--- ¡PASAMOS EL ARRAY DE OPCIONES EN ESPAÑOL!
+            opciones[0] // Botón predeterminado ("Sí")
     );
 
     // 2. Evaluar respuesta
-    if (opcion == javax.swing.JOptionPane.YES_OPTION) {
+    if (opcion == javax.swing.JOptionPane.YES_OPTION) { // Lógica: Si pulsa "Sí" (índice 0)
         // --- OPCIÓN SÍ: Guardar y Salir ---
         try {
             System.out.println(">>> Guardando datos en Excel...");
-            
+
             // LLAMADA AL GESTOR (Asegúrate de pasar las 5 listas)
             excel.guardarDatos(
-                    listaproductos, 
-                    listausuarios, 
-                    listacategorias, 
-                    listaproveedores, 
+                    listaproductos,
+                    listausuarios,
+                    listacategorias,
+                    listaproveedores,
                     listahistorial
             );
-            
+
             javax.swing.JOptionPane.showMessageDialog(this, "Datos guardados correctamente. ¡Hasta luego!");
             System.exit(0); // Cierra el programa totalmente
-            
+
         } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error crítico al guardar: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             // No cerramos la app para que el usuario pueda intentar arreglarlo (ej. cerrar el Excel si lo tiene abierto)
         }
-        
-    } else if (opcion == javax.swing.JOptionPane.NO_OPTION) {
+
+    } else if (opcion == javax.swing.JOptionPane.NO_OPTION) { // Lógica: Si pulsa "No" (índice 1)
         // --- OPCIÓN NO: Salir sin guardar ---
         System.out.println(">>> Cerrando sin guardar.");
-        System.exit(0); // Cierra el programa
-        
-    } 
-    // --- OPCIÓN CANCELAR: No hace nada, se queda en la ventana ---
+        System.exit(0); // Cierra el programa totalmente
+    }
+    // Si la opción es CANCEL_OPTION (índice 2) o CLOSED_OPTION (hizo clic en la X), el método simplemente termina y la aplicación sigue abierta.
 }
+        
+    
+    // --- OPCIÓN CANCELAR: No hace nada, se queda en la ventana ---
+
     /**
      * @param args the command line arguments
      */
