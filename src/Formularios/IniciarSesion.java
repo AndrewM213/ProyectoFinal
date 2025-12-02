@@ -90,7 +90,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe Print", 3, 48)); // NOI18N
         jLabel5.setText("Bienvenido");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 270, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 270, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tiendaLazo.png"))); // NOI18N
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, 349));
